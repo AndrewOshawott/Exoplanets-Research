@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas
 
-exoplanet_rawdata = pandas.read_csv('../../Downloads/exoplanet_rawdata.csv')
+exoplanet_rawdata = pandas.read_csv('exoplanet_rawdata.csv')
 df = exoplanet_rawdata[['KIC', 'KOI', 'Kepler', 'Period', 'Rp/R*', 'Status']]
 df = df[(df['Period']>0) & (df['Rp/R*']<15) & df['Status'].astype(str).str.startswith(' P')]
 print(df)
