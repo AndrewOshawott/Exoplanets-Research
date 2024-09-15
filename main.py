@@ -8,8 +8,10 @@ print(df)
 
 df.to_csv('exoplanet_filtereddata.csv')
 
-plot = df.plot.scatter(x='Period', y='Rp/R*', c='blue', s=2)
+plot = df.plot.scatter(x='Period', y='Rp/R*', c='blue', s=1)
 plt.xlabel('Period (days)')
 plt.ylabel('Radius of planet (Earth radii)')
+plt.xscale('log')
+plt.yscale('log')
 plt.title('Exoplanet data: Period v Radius (Filtered)')
 plt.show()
