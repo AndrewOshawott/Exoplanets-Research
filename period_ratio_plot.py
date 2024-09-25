@@ -7,10 +7,10 @@ exoplanet_multiplanetsystem_ratios = pandas.read_csv('exoplanet_multiplanetsyste
 df = exoplanet_multiplanetsystem_ratios[['KOI_inner','Period_inner','KOI_outer','Period_outer','Period Ratios']]
 print(df)
 
-plot = df.plot.scatter(x='Period_inner', y='Period_outer', c='Period Ratios', s=1, colormap='viridis', norm=LogNorm(),colorbar=True)
+plot = df.plot.scatter(x='Period_inner', y='Period Ratios', s=1)
 plt.xlabel('Period of inner planet in pair (days)')
-plt.ylabel('Period of outer planet in pair (days)')
+plt.ylabel('Period ratios')
 plt.xscale('log')
 plt.yscale('log')
-plt.title('Exoplanet data: Periods of inner planet vs outer planet in pair')
+plt.title('Exoplanet data: placeholder')
 plt.show()
