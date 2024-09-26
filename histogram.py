@@ -7,6 +7,7 @@ print(df)
 
 histogram = df.plot.hist(column='Period Ratios', bins=96)
 plt.xlabel('Period Ratios')
+plt.xlim(1,4.1)
 plt.xscale('log')
 
 plt.title('Exoplanet data: Histogram of period ratios')
