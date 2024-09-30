@@ -17,14 +17,14 @@ print(df)
 df.to_csv('exoplanet_filtereddata_KOI.csv')
 
 markers = {
-    1: ('o', '#440154', 2, 'One', koi_integer_count_array[0]),
-    2: ('o', '#46327e', 10, 'Two', koi_integer_count_array[1]),
-    3: ('^', '#365c8d', 20, 'Three', koi_integer_count_array[2]),
-    4: ('s', '#277f8e', 25, 'Four', koi_integer_count_array[3]),
-    5: ('*', '#1fa187', 50, 'Five', koi_integer_count_array[4]),
-    6: ('H', '#4ac16d', 55, 'Six', koi_integer_count_array[5]),
-    7: ('X', '#a0da39', 55, 'Seven', koi_integer_count_array[6]),
-    8: ('8', '#fde725', 60, 'Eight', koi_integer_count_array[7])
+    1: ('o', '#440154', 2, 'One', int(koi_integer_count_array[0]/1)),
+    2: ('o', '#46327e', 10, 'Two', int(koi_integer_count_array[1]/2)),
+    3: ('^', '#365c8d', 20, 'Three', int(koi_integer_count_array[2]/3)),
+    4: ('s', '#277f8e', 25, 'Four', int(koi_integer_count_array[3]/4)),
+    5: ('*', '#1fa187', 50, 'Five', int(koi_integer_count_array[4]/5)),
+    6: ('H', '#4ac16d', 55, 'Six', int(koi_integer_count_array[5]/6)),
+    7: ('X', '#a0da39', 55, 'Seven', int(koi_integer_count_array[6]/7)),
+    8: ('8', '#fde725', 60, 'Eight', int(koi_integer_count_array[7]/8))
 }
 
 
