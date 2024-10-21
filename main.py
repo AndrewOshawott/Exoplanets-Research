@@ -32,7 +32,7 @@ for count, (marker, color, size, label, planet_count) in markers.items():
     subset = df[df['KOI_integer_count'] == count]
     plt.scatter(subset['Period'], subset['Rp'], marker=marker, color=color, s=size, edgecolors='black', linewidths=0.4, label=f'{label}: {planet_count}')
 
-plt.legend(loc='lower right')
+plt.legend(loc='lower right', title='Planet Multiplicity', title_fontproperties={'weight': 'bold'})
 plt.xlabel('Period (days)')
 plt.ylabel('Radius of planet (Earth radii)')
 plt.xscale('log')
