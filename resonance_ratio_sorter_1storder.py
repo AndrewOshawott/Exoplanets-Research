@@ -4,7 +4,7 @@ exoplanet_multiplanetsystem_ratios = pandas.read_csv('exoplanet_multiplanetsyste
 df = exoplanet_multiplanetsystem_ratios[['KOI_inner','Period_inner','KOI_outer','Period_outer','Period Ratios']]
 df = df[(df['Period Ratios']<4.0)]
 
-j = 2
+j = 5
 target_value = j/(j-1)
 
 df['Nearest Period Ratio'] = f"{j}:{j-1}"
@@ -14,7 +14,7 @@ delta = df["delta"]
 
 df['Period_ttv'] = df['Period_outer'] / (j * df['delta'])
 
-df_filtered = df[df["delta"].between(-0.02, 0.02)]
+df_filtered = df[df["delta"].between(-0.05, 0.05)]
 df_sorted = df_filtered.iloc[df_filtered["delta"].abs().argsort()]
 
 print(df_sorted)
