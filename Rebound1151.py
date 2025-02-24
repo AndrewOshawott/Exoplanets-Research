@@ -60,11 +60,19 @@ op.fig.savefig("orbit1151.png")
 
 fig = plt.figure(figsize=(9,7))
 ax = plt.subplot(111)
-ax.plot(times,phi_degrees, 'b', marker=".", markersize=.5)
+ax.plot(times/365.2425,phi_degrees, 'b', marker=".", markersize=.5)
 ax.set_xlabel("t (years) ", fontsize=24)
-ax.set_ylabel("l1 (?)", fontsize=24)
+ax.set_ylabel("$\Phi$ (degrees)", fontsize=24)
 ax.legend(fontsize=24)
 plt.savefig("phichart1151.png")
+
+fig = plt.figure(figsize=(9,7))
+ax = plt.subplot(111)
+ax.plot(times/365.2425,l1, 'b', marker=".", markersize=.5)
+ax.set_xlabel("t (years) ", fontsize=24)
+ax.set_ylabel("$\lambda_1$ (AU)", fontsize=24)
+ax.legend(fontsize=24)
+plt.savefig("lamdbachart1151.png")
 
 for p in sim.particles:
     print("x/y values of each particle:", p.x, p.y)

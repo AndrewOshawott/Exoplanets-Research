@@ -1,8 +1,8 @@
 import math
 
-period = 7.41088006
-T0 = 787.606156
+period = 7.13295045
+T0 = 789.419586
 
-theta0 = -(2*math.pi / period) * (T0 - 780) + (2 * math.pi)
+theta0 = -(2*math.pi / period) * (T0 - 780) + 2*(2 * math.pi)
 print(theta0)
 
