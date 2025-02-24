@@ -4,27 +4,33 @@ import matplotlib.pyplot as plt
 
 sim = rebound.Simulation()
 
-sim.units = ('yr','AU','Msun')
+Mearth = 1.0/332940.0
+GMsun = 1.3271244e20 # [m3 s-2]
+au = 149597870700.0 # [m]
+G = GMsun*(86400**2)/au**3 # au, days, Msun
+
+sim.units = ('days','AU','Msun')
+print(sim.G)
 
 #star/COM
 sim.add(m=0.83)
 #1151.03 // Start with innermost planet, go outwards
-sim.add(m=(0.672**3.7)/332946,P=5.24969846/365.2425,theta=8.875948944787911)
+sim.add(m=(0.672**3.7)/332946,P=5.24969846,theta=3.3755376844593314)
 #1151.02 // Period is in days, convert to years (Divide by 365.2425)
-sim.add(m=(0.948**3.7)/332946,P=7.41088006/365.2425,theta=8.45398854570443)
+sim.add(m=(0.948**3.7)/332946,P=7.41088006,theta=6.1176240098545245)
 #1151.01 // mass ≈ R_p ^ 3.7 in Earth masses if radius of planet < 1.7 earth radii, then divide by 332946 to convert to solar masses
-sim.add(m=(1.229**3.7)/332946, P=10.43545334/365.2425,theta=8.475163889910444)
+sim.add(m=(1.229**3.7)/332946, P=10.43545334,theta=1.5428143395216987)
 #1151.04
-sim.add(m=(0.759**3.7)/332946,P=17.45319318/365.2425,theta=-1.8488879509549183)
+#sim.add(m=(0.759**3.7)/332946,P=17.45319318/365.2425,theta=-1.8488879509549183)
 #1151.05
-sim.add(m=(0.801**3.7)/332946,P=21.72027051/365.2425,theta=4.824742488707509)
+#sim.add(m=(0.801**3.7)/332946,P=21.72027051/365.2425,theta=4.824742488707509)
 
 os = sim.orbits()
 print("n_i (in rad/days) = %6.3f, %6.3f, %6.3f" % (os[0].n,os[1].n,os[2].n))
 print("P_i (in days)     = %6.3f, %6.3f, %6.3f" % (os[0].P,os[1].P,os[2].P))
 
-Tfinal= 1
-Nout = 365 # number of printed out timesteps.
+Tfinal= 365
+Nout = 100 # number of printed out timesteps.
 
 phi = zeros(Nout)
 l1,l2,l3 = zeros(Nout), zeros(Nout), zeros(Nout)
@@ -56,7 +62,7 @@ fig = plt.figure(figsize=(9,7))
 ax = plt.subplot(111)
 ax.plot(times,phi_degrees, 'b', marker=".", markersize=.5)
 ax.set_xlabel("t (years) ", fontsize=24)
-ax.set_ylabel("\u03C6 (deg)", fontsize=24)
+ax.set_ylabel("l1 (?)", fontsize=24)
 ax.legend(fontsize=24)
 plt.savefig("phichart1151.png")
 
