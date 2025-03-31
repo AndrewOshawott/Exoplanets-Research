@@ -19,16 +19,16 @@ sim.add(m=(1.649**3)/332946,P=5.83391524,theta=2.8266122994678042)
 #1574.04 // Period is in days, convert to years (Divide by 365.2425)
 sim.add(m=(1.403**3)/332946,P=8.97721049,theta=3.0445136870582044)
 #1574.01 // mass ≈ R_p ^ 3 in Earth masses if radius of planet > 1.7 earth radii, then divide by 332946 to convert to solar masses
-sim.add(m=(10.234**3.7)/332946, P=114.7366498,theta=5.923396073788196)
+sim.add(m=(1**3.7)/332946, P=114.7366498,theta=5.923396073788196)
 #1574.02
-sim.add(m=(4.648**3.7)/332946,P=191.2388431,theta=5.858135369155586)
+sim.add(m=(1**3.7)/332946,P=191.2388431,theta=5.858135369155586)
 
 os = sim.orbits()
 print("n_i (in rad/days) = %6.3f, %6.3f, %6.3f" % (os[0].n,os[1].n,os[2].n))
 print("P_i (in days)     = %6.3f, %6.3f, %6.3f" % (os[0].P,os[1].P,os[2].P))
 
-Tfinal= 365*10
-Nout = Tfinal # number of printed out timesteps.
+Tfinal= 365*1000
+Nout = 1000 # number of printed out timesteps.
 
 phi = zeros(Nout)
 l1,l2,l3 = zeros(Nout), zeros(Nout), zeros(Nout)

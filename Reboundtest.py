@@ -13,6 +13,7 @@ sim.units = ('day','AU','Msun')
 print(sim.G)
 
 labels = ["Jupiter", "Io", "Europa","Ganymede","Callisto"]
+sim.add(labels)
 #star/COM
 sim.add(m=317.906)
 #Io // Start with innermost planet, go outwards
