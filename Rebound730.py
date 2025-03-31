@@ -15,19 +15,19 @@ print(sim.G)
 #star/COM
 sim.add(m=1.04)
 #730.04 // Start with innermost planet, go outwards
-sim.add(m=(2.932**3.7)/332946,P=7.38445597,theta=0.5270963547326541)
-#730.02 // mass ≈ R_p ^ 3.7 in Earth masses if radius of planet < 1.7 earth radii, then divide by 332946 to convert to solar masses
-sim.add(m=(3.314**3.7)/332946,P=9.84821114,theta=5.988694195771712)
+sim.add(m=(2.932**3)/332946,P=7.38445597,theta=0.5270963547326541,inc=89.6208*pi/180)
+#730.02 // mass ≈ R_p ^ 3 in Earth masses if radius of planet > 1.7 earth radii, then divide by 332946 to convert to solar masses
+sim.add(m=(3.314**3)/332946,P=9.84821114,theta=5.988694195771712,inc=89.6128*pi/180)
 #730.01 //
-sim.add(m=(4.416**3.7)/332946, P=14.78701236,theta=2.0229457548913903)
+sim.add(m=(4.416**3)/332946, P=14.78701236,theta=2.0229457548913903,inc=89.6931*pi/180)
 #730.03
-sim.add(m=(3.807**3.7)/332946,P=19.72433675,theta=0.5940821662410035)
+sim.add(m=(3.807**3)/332946,P=19.72433675,theta=0.5940821662410035,inc=89.708*pi/180)
 
 os = sim.orbits()
 print("n_i (in rad/days) = %6.3f, %6.3f, %6.3f" % (os[0].n,os[1].n,os[2].n))
 print("P_i (in days)     = %6.3f, %6.3f, %6.3f" % (os[0].P,os[1].P,os[2].P))
 
-Tfinal= 1000
+Tfinal= 10*365
 Nout = 1000 # number of printed out timesteps.
 
 phi = zeros(Nout)
@@ -62,7 +62,7 @@ ax.plot(times/365.2425,phi_degrees, 'b', marker=".", markersize=.5)
 ax.set_xlabel("t (years)", fontsize=20)
 ax.set_ylabel("$\Phi$ (degrees)", fontsize=20)
 ax.set_title("Resonant Argument of KOI 730 (aka Kepler-223)",fontsize=20)
-ax.annotate("p = 3, q = 3",xy=(9,360))
+ax.annotate("p = 3, q = 3",xy=(9,365))
 plt.savefig("phichart730.png")
 
 fig = plt.figure(figsize=(9,7))
