@@ -35,12 +35,12 @@ Nout = 1000 # number of printed out timesteps.
 phi = zeros(Nout)
 l1,l2,l3 = zeros(Nout), zeros(Nout), zeros(Nout)
 
-p,q = 5, 7
+p,q = 3, 10
 
 times = linspace(0.,Tfinal,Nout)
 for i,time in enumerate(times):
     sim.integrate(time)
-    l1[i],l2[i],l3[i] = sim.particles[1].l,sim.particles[2].l,sim.particles[3].l
+    l1[i],l2[i],l3[i] = sim.particles[3].l,sim.particles[4].l,sim.particles[5].l
     phi[i] = p*l1[i]-(p+q)*l2[i]+q*l3[i]
 sim.move_to_com()
 
@@ -63,9 +63,9 @@ ax = plt.subplot(111)
 ax.plot(times/365.2425,phi_degrees, 'b', marker=".", markersize=.5)
 ax.set_xlabel("t (years)", fontsize=20)
 ax.set_ylabel("$\Phi$ (degrees)", fontsize=20)
-ax.set_title("Resonant Argument of KOI 1151$_1$ (aka Kepler-271)",fontsize=20)
-ax.annotate("p = 5, q = 7",xy=(8.95,365.25))
-plt.figtext(0.05, 0.01, "1: This is a 5 planet system, this graph is for $\lambda_1$ = KOI 1151.03, $\lambda_2$ = KOI 1151.02, and $\lambda_3$ = KOI 1151.01", ha="left", fontsize=8)
+ax.set_title("Resonant Argument of KOI 1151$_3$ (aka Kepler-271)",fontsize=20)
+ax.annotate("p = 3, q = 10",xy=(8.95,365.25))
+plt.figtext(0.05, 0.01, "1: This is a 5 planet system, this graph is for $\lambda_1$ = KOI 1151.01, $\lambda_2$ = KOI 1151.04, and $\lambda_3$ = KOI 1151.05", ha="left", fontsize=8)
 plt.savefig("phichart1151.png")
 
 fig = plt.figure(figsize=(9,7))

@@ -33,12 +33,12 @@ Nout = 1000 # number of printed out timesteps.
 phi = zeros(Nout)
 l1,l2,l3 = zeros(Nout), zeros(Nout), zeros(Nout)
 
-p,q = 2, 4
+p,q = 3, 3
 
 times = linspace(0.,Tfinal,Nout)
 for i,time in enumerate(times):
     sim.integrate(time)
-    l1[i],l2[i],l3[i] = sim.particles[2].l,sim.particles[3].l,sim.particles[4].l
+    l1[i],l2[i],l3[i] = sim.particles[1].l,sim.particles[2].l,sim.particles[3].l
     phi[i] = p*l1[i]-(p+q)*l2[i]+q*l3[i]
 sim.move_to_com()
 
@@ -49,13 +49,45 @@ print(phi_degrees)
 op = rebound.OrbitPlot(sim,unitlabel="[AU]", color="blue", figsize=[5.5,5])
 op.ax.set_title("KOI 730 (aka Kepler-223)")
 
+labels = ["Star", "730.04", "730.02", "730.01", "730.03"]
+for i, p in enumerate(sim.particles):
+    x, y, _ = p.xyz
+    op.ax.text(x-0.0115, y+0.006, labels[i], fontsize=8, color="black")
+
+op.fig.savefig("orbit2086.png")
+
 fig = plt.figure(figsize=(9,7))
 ax = plt.subplot(111)
 ax.plot(times/365.2425,phi_degrees, 'b', marker=".", markersize=.5)
 ax.set_xlabel("t (years)", fontsize=20)
 ax.set_ylabel("$\Phi$ (degrees)", fontsize=20)
-ax.set_title("Resonant Argument of KOI 730$_2$ (aka Kepler-223)",fontsize=20)
-ax.annotate("p = 2, q = 4",xy=(9,365))
-plt.figtext(0.05, 0.01, "2: This is a 4 planet system, this graph is for $\lambda_1$ = KOI 730.02, $\lambda_2$ = KOI 730.01, and $\lambda_3$ = KOI 730.03", ha="left", fontsize=8)
-plt.savefig("phichart730_2.png")
+ax.set_title("Resonant Argument of KOI 730 (aka Kepler-223)",fontsize=20)
+ax.annotate("p = 3, q = 3",xy=(9,365))
+plt.savefig("phichart730_1.png")
+
+fig = plt.figure(figsize=(9,7))
+ax = plt.subplot(111)
+ax.plot(times,l1*180/pi, 'b', marker=".", markersize=.5)
+ax.set_xlabel("t (days)", fontsize=20)
+ax.set_ylabel("$\lambda_1$ (degrees)", fontsize=20)
+ax.set_title("Mean longitude of KOI 730.04",fontsize=20)
+plt.axhline(y=(0.5270963547326541*180/pi), color='b', linestyle='--')
+ax.plot([0,7.38445597],[0.5270963547326541*180/pi,0.5270963547326541*180/pi],'bo')
+ax.annotate("(0,30.2$\degree$)",xy=(0,18),color='b')
+ax.annotate("(7.38445597,30.2$\degree$)",xy=(7.4,18),color='b')
+plt.savefig("lamdbachart730.png")
+
+fig = plt.figure(figsize=(9,7))
+ax = plt.subplot(111)
+ax.plot(times/365.2425,(3*l1*180/pi-4*l2*180/pi) % 360, 'b', marker=".", markersize=.5)
+ax.set_xlabel("t (years)", fontsize=20)
+ax.set_ylabel("$p*\lambda_1 - q*\lambda_2$ (degrees)", fontsize=20)
+ax.set_title("Mean longitude of KOI 730.04 - KOI 730.02",fontsize=20)
+ax.annotate("p = 3, q = 4",xy=(9,365))
+plt.savefig("lamdbaequationchart730.png")
+
+for p in sim.particles:
+    print("x/y values of each particle:", p.x, p.y)
+for o in sim.orbits():
+    print("orbit properties:", o)
 
