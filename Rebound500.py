@@ -31,18 +31,18 @@ os = sim.orbits()
 print("n_i (in rad/days) = %6.3f, %6.3f, %6.3f" % (os[2].n,os[3].n,os[4].n))
 print("P_i (in days)     = %6.3f, %6.3f, %6.3f" % (os[2].P,os[3].P,os[4].P))
 
-Tfinal= 50*365
+Tfinal= 10*365
 Nout = 1000 # number of printed out timesteps.
 
 phi = zeros(Nout)
 l1,l2,l3 = zeros(Nout), zeros(Nout), zeros(Nout)
 
-p,q = 3, 3
+p,q = 1, 6
 
 times = linspace(0.,Tfinal,Nout)
 for i,time in enumerate(times):
     sim.integrate(time)
-    l1[i],l2[i],l3[i] = sim.particles[4].l,sim.particles[5].l,sim.particles[6].l
+    l1[i],l2[i],l3[i] = sim.particles[1].l,sim.particles[2].l,sim.particles[3].l
     phi[i] = p*l1[i]-(p+q)*l2[i]+q*l3[i]
 sim.move_to_com()
 
@@ -54,7 +54,7 @@ ax.plot(times/365.2425,phi_degrees, 'b', marker=".", markersize=.5)
 ax.set_xlabel("t (years)", fontsize=20)
 ax.set_ylabel("$\Phi$ (degrees)", fontsize=20)
 ax.set_title("Resonant Argument of KOI 500$_3$ (aka Kepler-80)",fontsize=20)
-ax.annotate("p = 3, q = 3",xy=(45,275))
-plt.figtext(0.05, 0.01, "3: This is a 6 planet system, this graph is for $\lambda_1$ = KOI 500.01, $\lambda_2$ = KOI 500.02, and $\lambda_3$ = KOI 500.06", ha="left", fontsize=8)
-plt.savefig("phichart500_3.png")
+ax.annotate("p = 1, q = 6",xy=(9,275))
+plt.figtext(0.05, 0.01, "3: This is a 6 planet system, this graph is for $\lambda_1$ = KOI 500.05, $\lambda_2$ = KOI 500.03, and $\lambda_3$ = KOI 500.04", ha="left", fontsize=8)
+plt.savefig("phichart500_1.png")
 
