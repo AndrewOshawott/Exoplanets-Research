@@ -46,16 +46,16 @@ for i,time in enumerate(times):
 sim.move_to_com()
 
 #radian to degree conversion
-phi_degrees = (phi*180/pi) % 360
+phi_degrees = (phi*180/pi + 180) % 360 - 180
 print(phi_degrees)
 
 fig = plt.figure(figsize=(9,7))
 ax = plt.subplot(111)
 ax.plot(times/365.2425,phi_degrees, 'b', marker=".", markersize=.5)
 ax.set_xlabel("t (years)", fontsize=20)
-ax.set_ylabel("$\Phi$ (degrees)", fontsize=20)
-ax.set_title("Resonant Argument of KOI 707$_2$ (aka Kepler-33)",fontsize=20)
-ax.annotate("p = 2, q = 4",xy=(90,365))
-plt.figtext(0.05, 0.01, "2: This is a 5 planet system, this graph is for $\lambda_1$ = KOI 707.01, $\lambda_2$ = KOI 707.03, and $\lambda_3$ = KOI 707.02", ha="left", fontsize=8)
-plt.savefig("phichart707_2_long.png")
+ax.set_ylabel("$\phi$ (degrees)", fontsize=20)
+ax.set_title("Resonant Argument of KOI 707 (aka Kepler-33)",fontsize=20)
+ax.annotate("p = 2, q = 4",xy=(90,68))
+#plt.figtext(0.05, 0.01, "2: This is a 5 planet system, this graph is for $\lambda_1$ = KOI 707.01, $\lambda_2$ = KOI 707.03, and $\lambda_3$ = KOI 707.02", ha="left", fontsize=8)
+plt.savefig("phichart707_long.png")
 
