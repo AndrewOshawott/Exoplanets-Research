@@ -15,13 +15,13 @@ print(sim.G)
 #star/COM
 sim.add(m=1)
 #2086.01 // Start with innermost planet, go outwards
-sim.add(m=(1.734**3)/332946,P=7.13295045,theta=4.268962021689864)
+sim.add(m=1.2098813600048056e-05,P=7.13295045,T=9.419586,e=0.027303123741573964)
 #2086.02 // Period is in days, convert to years (Divide by 365.2425)
-sim.add(m=(1.943**3)/332946,P=8.91897737,theta=1.6340637234308417)
+sim.add(m=1.1053898600348412e-05,P=8.91897737,T=6.599425,e=0.04989897203081442)
 #2086.03 // mass ≈ R_p ^ 3 in Earth masses if radius of planet > 1.7 earth radii, then divide by 332946 to convert to solar masses
-sim.add(m=(1.756**3)/332946, P=11.89824703,theta=6.145702704123614)
+sim.add(m=1.1743689553673334e-05, P=11.89824703,T=12.158593,e=0.020581611655147415)
 #2086.04
-sim.add(m=(1.836**3)/332946,P=335.5198537,theta=3.1986270262231145)
+sim.add(m=(1.836**3)/332946,P=335.5198537,T=-170.805542)
 
 os = sim.orbits()
 print("n_i (in rad/days) = %6.3f, %6.3f, %6.3f" % (os[0].n,os[1].n,os[2].n))

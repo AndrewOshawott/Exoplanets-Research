@@ -1,91 +1,52 @@
 import pandas as pd
-import math
-from decimal import Decimal, getcontext, ROUND_HALF_UP
+import numpy as np
 
-input_file = "multiplanet_matches.csv"
-output_file = "multiplanet_matches_rounded.csv"
+# ========================
+# USER SETTINGS
+# ========================
+INPUT_CSV  = "resonancecandidates_triples.csv"         # <-- Change this to your input file name
+OUTPUT_CSV = "resonancecandidates_triples_rounded.csv"        # <-- Change this to your desired output file name
+COLUMNS    = ["Period_inner",'Period_middle','Period_outer','Period Ratios_inner','Period Ratios_outer','delta_inner','delta_outer','Period_ttv_inner','Period_ttv_outer','n1','n2','n3','3 Body Equation']  # <-- Columns to format (must match CSV header)
+SIGFIGS    = 6                   # <-- Number of significant figures
+# ========================
 
 
-def format_sigfigs(num, sigfigs=6):
-
-    if pd.isna(num):
-        return num
-
+def format_sigfigs(x, sigfigs=6):
+    """
+    Format a number to exactly `sigfigs` significant figures,
+    including trailing zeros if necessary. Non-numeric values
+    are returned unchanged as strings.
+    """
     try:
-        num_float = float(num)
-    except ValueError:
-        return num
-
-    if num_float == 0:
-        return '0.' + '0' * (sigfigs - 1)
-
-    sign = '-' if num_float < 0 else ''
-    num_abs = abs(num_float)
-
-    getcontext().prec = sigfigs + 2
-
-    exponent = int(math.floor(math.log10(num_abs)))
-
-    decimal_places = sigfigs - exponent - 1
-
-    d = Decimal(num_abs)
-
-    if decimal_places >= 0:
-        quantize_str = '1.' + '0' * decimal_places
-    else:
-        quantize_str = '1E' + str(-decimal_places)
-
-    rounded = d.quantize(Decimal(quantize_str), rounding=ROUND_HALF_UP)
-
-    if decimal_places >= 0:
-        fmt = f"{{0:.{decimal_places}f}}".format(rounded)
-    else:
-        fmt = f"{{0:.0f}}".format(rounded)
-
-    if '.' in fmt:
-        integer_part, fractional_part = fmt.split('.')
-        fractional_part = fractional_part.ljust(decimal_places, '0')
-        fmt = f"{integer_part}.{fractional_part}"
-
-    sigfigs_count = len(fmt.replace('.', '').replace('-', '').lstrip('0'))
-
-    if sigfigs_count < sigfigs:
-        if '.' in fmt:
-            needed = sigfigs - sigfigs_count
-            fmt += '0' * needed
+        x = float(x)
+        if x == 0:
+            return f"{0:.{sigfigs - 1}f}"  # e.g. "0.00000" for sigfigs=6
+        exponent = int(np.floor(np.log10(abs(x))))
+        decimals = sigfigs - exponent - 1
+        if decimals > 0:
+            return f"{x:.{decimals}f}"  # fixed decimal with trailing zeros
         else:
-            fmt += '.' + '0' * (sigfigs - sigfigs_count)
+            return f"{x:.{sigfigs}g}"    # scientific or integer if large
+    except (ValueError, TypeError):
+        return str(x)  # keep text as string
 
-    return sign + fmt
 
+def round_csv_columns(input_csv, output_csv, columns, sigfigs=6):
+    """
+    Format specified columns in a CSV to exactly `sigfigs` significant figures.
+    """
+    # Read as strings to preserve formatting and avoid auto-conversion
+    df = pd.read_csv(input_csv, dtype=str)
 
-def process_csv(input_file, output_file):
-    columns_to_round = ["Period_inner", "Period_outer", "Period Ratios", "delta", "Period_ttv"]
-
-    try:
-        df = pd.read_csv(input_file, dtype=str)
-    except FileNotFoundError:
-        print(f"Error: The file '{input_file}' was not found.")
-        return
-    except Exception as e:
-        print(f"Error reading '{input_file}': {e}")
-        return
-
-    for col in columns_to_round:
+    for col in columns:
         if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors='coerce')
+            df[col] = df[col].apply(lambda x: format_sigfigs(x, sigfigs))
         else:
-            print(f"Warning: Column '{col}' not found in the CSV.")
+            print(f"⚠️ Warning: Column '{col}' not found in CSV.")
 
-    for col in columns_to_round:
-        if col in df.columns:
-            df[col] = df[col].apply(lambda x: format_sigfigs(x) if pd.notnull(x) else x)
-
-    try:
-        df.to_csv(output_file, index=False)
-        print(f"Processed CSV saved to '{output_file}'.")
-    except Exception as e:
-        print(f"Error writing to '{output_file}': {e}")
+    df.to_csv(output_csv, index=False)
+    print(f"✅ Rounded CSV saved to: {output_csv}")
 
 
-process_csv(input_file, output_file)
+if __name__ == "__main__":
+    round_csv_columns(INPUT_CSV, OUTPUT_CSV, COLUMNS, SIGFIGS)

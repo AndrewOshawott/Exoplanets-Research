@@ -30,7 +30,7 @@ os = sim.orbits()
 print("n_i (in rad/days) = %6.3f, %6.3f, %6.3f" % (os[0].n,os[1].n,os[2].n))
 print("P_i (in days)     = %6.3f, %6.3f, %6.3f" % (os[0].P,os[1].P,os[2].P))
 
-Tfinal= 100*365
+Tfinal= 10*365
 Nout = 1000 # number of printed out timesteps.
 
 phi = zeros(Nout)
