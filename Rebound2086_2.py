@@ -62,7 +62,7 @@ ax.plot(times/365.2425,phi_degrees, 'b', marker=".", markersize=.5)
 ax.set_xlabel("t (years)", fontsize=20)
 ax.set_ylabel("$\Phi$ (degrees)", fontsize=20)
 ax.set_title("Resonant Argument of KOI 2086 (aka Kepler-60)",fontsize=20)
-ax.annotate("p = 4, q = 4",xy=(9,360))
+ax.annotate("p = 4, q = 4",xy=(9,250))
 #ax.legend(fontsize=24)
 plt.savefig("phichart2086.png")
 
